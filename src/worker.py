@@ -267,8 +267,8 @@ class make_worker(object):
                             dis_acml_loss += self.contrastive_lambda*self.NCA_criterion(cls_embed_real, cls_proxies_real, real_labels)
                         elif self.conditional_strategy == "ContraGAN":
                             real_cls_mask = make_mask(real_labels, self.num_classes, self.default_device)
-                            dis_acml_loss += self.contrastive_lambda*self.contrastive_criterion(cls_embed_real, cls_proxies_real,
-                                                                                                real_cls_mask, real_labels, t, self.margin)
+                            cond_contra_loss = self.contrastive_criterion(cls_embed_real, cls_proxies_real, real_cls_mask, real_labels, t, self.margin)
+                            dis_acml_loss += self.contrastive_lambda*cond_contra_loss
                         else:
                             pass
 
@@ -459,6 +459,7 @@ class make_worker(object):
                                                 gen_loss=gen_acml_loss.item(),
                                                 )
                 self.logger.info(log_message)
+                print(cond_contra_loss)
 
                 if self.g_spectral_norm:
                     gen_sigmas = calculate_all_sn(self.gen_model)

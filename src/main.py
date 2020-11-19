@@ -19,7 +19,7 @@ from loader import prepare_train_eval
 def main():
     parser = ArgumentParser(add_help=False)
     parser.add_argument('-c', '--config_path', type=str, default='./configs/CIFAR10/ContraGAN.json')
-    parser.add_argument('--checkpoint_folder', type=str, default=None)
+    parser.add_argument('--checkpoint_folder', type=str, default='./checkpoints/ContraGAN-train-2020_11_19_11_05_48')
     parser.add_argument('-current', '--load_current', action='store_true', help='whether you load the current or best checkpoint')
     parser.add_argument('--log_output_path', type=str, default=None)
 
